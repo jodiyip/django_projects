@@ -1,0 +1,30 @@
+{% extends "main.html" %}
+
+{% block content %}
+  <h1>Stars List</h1>
+  {% if stars_list %}
+  <ul>
+    {% for stars in stars_list %}
+      <li>
+          {{ stars.nickname }} ({{ stars.make }})
+          (<a href="{% url 'stars_update' stars.id %}">Update</a> |
+          <a href="{% url 'stars_delete' stars.id %}">Delete</a>) <br/>
+          {{ stars.comments }} ({{ stars.mileage }} miles)
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no stars in the library.</p>
+  {% endif %}
+  <p>
+    {% if type_count > 0 %}
+      <a href="{% url 'stars_create' %}">Add a star</a>
+    {% else %}
+      Please add a make before you add a star.
+    {% endif %}
+  </p>
+  <p>
+  <a href="{% url 'type_list' %}">View types</a> ({{ type_count }}) |
+    <a href="{% url 'type_create' %}">Add a type</a>
+  </p>
+{% endblock %}

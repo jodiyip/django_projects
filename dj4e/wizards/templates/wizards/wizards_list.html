@@ -1,0 +1,30 @@
+{% extends "main.html" %}
+
+{% block content %}
+  <h1>Wizards List</h1>
+  {% if wizards_list %}
+  <ul>
+    {% for wizards in wizards_list %}
+      <li>
+          {{ wizards.nickname }} ({{ wizard.make }})
+          (<a href="{% url 'wizards_update' wizards.id %}">Update</a> |
+          <a href="{% url 'wizards_delete' wizards.id %}">Delete</a>) <br/>
+          {{ wizards.comments }} ({{ wizards.mileage }})
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no wizards in the library.</p>
+  {% endif %}
+  <p>
+    {% if house_count > 0 %}
+      <a href="{% url 'wizards_create' %}">Add a wizard</a>
+    {% else %}
+      Please add a make before you add a wizard.
+    {% endif %}
+  </p>
+  <p>
+  <a href="{% url 'house_list' %}">View houses</a> ({{ house_count }}) |
+    <a href="{% url 'house_create' %}">Add a house</a>
+  </p>
+{% endblock %}

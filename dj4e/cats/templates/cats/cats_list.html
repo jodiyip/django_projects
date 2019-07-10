@@ -1,0 +1,30 @@
+{% extends "main.html" %}
+
+{% block content %}
+  <h1>Cats List</h1>
+  {% if cats_list %}
+  <ul>
+    {% for cats in cats_list %}
+      <li>
+          {{ cats.nickname }} ({{ cats.make }})
+          (<a href="{% url 'cats_update' cats.id %}">Update</a> |
+          <a href="{% url 'cats_delete' cats.id %}">Delete</a>) <br/>
+          {{ cats.comments }} ({{ cats.mileage }} miles)
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no cats in the library.</p>
+  {% endif %}
+  <p>
+    {% if breed_count > 0 %}
+      <a href="{% url 'cats_create' %}">Add a cat</a>
+    {% else %}
+      Please add a make before you add a cat.
+    {% endif %}
+  </p>
+  <p>
+  <a href="{% url 'breed_list' %}">View breeds</a> ({{ breed_count }}) |
+    <a href="{% url 'breed_create' %}">Add a breed</a>
+  </p>
+{% endblock %}
